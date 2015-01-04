@@ -28,12 +28,13 @@ public class L1Map {
 
 	private int _tiles[] = null;
 
-	private int getOffset(int xOff, int yOff, int x, int y) {
+	private int getOffset(int xOff, int yOff, int x, int y)
+	{
 		return (_xSize * 64 * 2) * (yOff * 64 + y) + (xOff * 64 * 2) + x;
 	}
 
-	public L1Map(ArrayList<L1MapPart> maps, int num, int xLoc, int yLoc,
-			int xSize, int ySize) {
+	public L1Map(ArrayList<L1MapPart> maps, int num, int xLoc, int yLoc, int xSize, int ySize)
+	{
 		_maps = maps;
 		_num = num;
 		_xLoc = xLoc;
@@ -43,57 +44,70 @@ public class L1Map {
 
 	}
 
-	public void build() {
+	public void build()
+	{
 		_tiles = new int[_xSize * _ySize * 64 * 64 * 2];
 
-		for (L1MapPart part : _maps) {
+		for(L1MapPart part : _maps)
+		{
 			part.load();
 			int xOff = part.getXOff();
 			int yOff = part.getYOff();
 
-			for (int y = 0; y < 64; y++) {
+			for(int y = 0; y < 64; y++)
+			{
 				int row[] = part.getRow(y);
 
-				for (int x = 0; x < 64 * 2; x++) {
+				for(int x = 0; x < 64 * 2; x++)
+				{
 					_tiles[getOffset(xOff, yOff, x, y)] = row[x];
 				}
 			}
 		}
 	}
 
-	public TreeSet<Integer> getTileValueSet() {
+	public TreeSet<Integer> getTileValueSet()
+	{
 		TreeSet<Integer> result = new TreeSet<Integer>();
-		for (int v : _tiles) {
+		for(int v : _tiles)
+		{
 			result.add(v);
 		}
 		return result;
 	}
 
-	public int getTile(int idx) {
+	public int getTile(int idx)
+	{
 		return _tiles[idx];
 	}
 
-	public int[] getRawTile() {
+	public int[] getRawTile()
+	{
 		return _tiles;
 	}
 
-	public int getXLoc() {
+	public int getXLoc()
+	{
 		return _xLoc;
 	}
 
-	public int getYLoc() {
+	public int getYLoc()
+	{
 		return _yLoc;
 	}
 
-	public int getXSize() {
+	public int getXSize()
+	{
 		return _xSize;
 	}
 
-	public int getYSize() {
+	public int getYSize()
+	{
 		return _ySize;
 	}
 
-	public int getNum() {
+	public int getNum()
+	{
 		return _num;
 	}
 }
