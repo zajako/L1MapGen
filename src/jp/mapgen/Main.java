@@ -38,17 +38,29 @@ public class Main {
 		TreeSet<String> fileList = new TreeSet<String>();
 		TreeSet<Integer> xList = new TreeSet<Integer>();
 		TreeSet<Integer> yList = new TreeSet<Integer>();
+		int x_max = 0;
+		int x_min = 999999;
+		int y_max = 0;
+		int y_min = 999999;
+
 
 		for (File f : mapDir.listFiles(new MapFileFilter())) {
 			MapFileName fileName = new MapFileName(f);
-
 			xList.add(fileName.getX());
 			yList.add(fileName.getY());
 			fileList.add(fileName.getNameWithoutExtension());
+			if(fileName.getX() > x_max)
+				x_max = fileName.getX();
+			if(fileName.getY() > y_max)
+				y_max = fileName.getY();
+			if(fileName.getX() < x_min)
+				x_min = fileName.getX();
+			if(fileName.getY() < y_min)
+				y_min = fileName.getY();
 		}
 
-		int xSize = xList.last() - xList.first() + 1;
-		int ySize = yList.last() - yList.first() + 1;
+		int xSize = x_max - x_min + 1;
+		int ySize = y_max - y_min + 1;
 
 		ArrayList<L1MapPart> maps = new ArrayList<L1MapPart>();
 		for (String fileName : fileList) {
