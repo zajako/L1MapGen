@@ -27,11 +27,9 @@ import jp.l1j.mapgen.util.StringUtils;
 public class MapInfoBuilder {
 	ArrayList<String> _infos = new ArrayList<String>();
 
-	public void add(int no, int xStart, int xEnd, int yStart, int yEnd) {
-		String s = "{ "
-				+ StringUtils.join(
-						new int[] { no, xStart, xEnd, yStart, yEnd }, ", ")
-				+ " }";
+	public void add(int no, int xStart, int xEnd, int yStart, int yEnd)
+	{
+		String s = "Update `mapids` set startX='"+xStart+"', endX='"+xEnd+"', startY='"+yStart+"', endY='"+yEnd+"' Where mapid='"+no+"';";
 		_infos.add(s);
 	}
 
@@ -55,9 +53,7 @@ public class MapInfoBuilder {
 	@Override
 	public String toString() {
 		StringBuilder result = new StringBuilder();
-		result.append("private static final int[][] MAP_INFO = {\r\n\t\t");
-		result.append(StringUtils.join(_infos.toArray(), ",\r\n\t\t"));
-		result.append(" };\r\n");
+		result.append(StringUtils.join(_infos.toArray(), "\r\n"));
 		return result.toString();
 	}
 }
